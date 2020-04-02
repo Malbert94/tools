@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#datTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#datTable th, #datTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#datTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#datTable tr.header, #datTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+th {
+  background-color: #f1f1f1;
+}
+</style>
+</head>
+
+<input type="file" name="myFile" onchange='openFile(event)'>
+
+<body onLoad="buildHtmlTable('#excelDataTable')">
+  <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search.." title="Search">
+  <table id="excelDataTable" border="1">
+  </table>
+</body>
+
+<script  src="colums.js"></script>
+
+<script>
+function myFunction() {
+
+  // Declare variables
+  var input = document.getElementById("myInput");
+  var filter = input.value.toUpperCase();
+  var table = document.getElementById("datTable");
+  var trs = table.getElementsByTagName("tr");
+
+  // Loop through first tbody's rows
+  for (var i = 1; i < trs.length; i++) {
+    // define the row's cells
+    var tds = trs[i].getElementsByTagName("td");
+    // hide the row
+    trs[i].style.display = "none";
+    // loop through row cells
+    for (var i2 = 0; i2 < tds.length; i2++) {
+      // if there's a match
+      if (tds[i2].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        // show the row
+        trs[i].style.display = "";
+        // skip to the next row
+        continue;
+      }
+    }
+  }
+}
+</script>
